@@ -31,6 +31,7 @@ public class GameFlowManager : MonoBehaviour
     PlayerCharacterController m_Player;
     NotificationHUDManager m_NotificationHUDManager;
     ObjectiveManager m_ObjectiveManager;
+    PlayerScore m_playerScore;
     float m_TimeLoadEndGameScene;
     string m_SceneToLoad;
 
@@ -41,6 +42,8 @@ public class GameFlowManager : MonoBehaviour
 
         m_ObjectiveManager = FindObjectOfType<ObjectiveManager>();
 		DebugUtility.HandleErrorIfNullFindObject<ObjectiveManager, GameFlowManager>(m_ObjectiveManager, this);
+
+        m_playerScore = GetComponent<PlayerScore>();
 
         AudioUtility.SetMasterVolume(1);
     }
@@ -83,6 +86,11 @@ public class GameFlowManager : MonoBehaviour
         endGameFadeCanvasGroup.gameObject.SetActive(true);
         if (win)
         {
+
+            PlayerScore playerScore = FindObjectOfType<PlayerScore>();
+            playerScore.AddPoints(100);
+            playerScore.UpdateHighScore();
+
             m_SceneToLoad = winSceneName;
             m_TimeLoadEndGameScene = Time.time + endSceneLoadDelay + delayBeforeFadeToBlack;
 

@@ -1,5 +1,6 @@
 ﻿using UnityEngine;
 using UnityEngine.Events;
+using UnityEngine.UI;
 
 [RequireComponent(typeof(CharacterController), typeof(PlayerInputHandler), typeof(AudioSource))]
 public class PlayerCharacterController : MonoBehaviour
@@ -135,7 +136,7 @@ public class PlayerCharacterController : MonoBehaviour
 
         m_Actor = GetComponent<Actor>();
         DebugUtility.HandleErrorIfNullGetComponent<Actor, PlayerCharacterController>(m_Actor, this, gameObject);
-
+      
         m_Controller.enableOverlapRecovery = true;
 
         m_Health.onDie += OnDie;

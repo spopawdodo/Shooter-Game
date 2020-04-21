@@ -1,5 +1,7 @@
 ﻿using UnityEngine;
 using UnityEngine.Events;
+using System;
+using System.Reflection;
 
 public class Health : MonoBehaviour
 {
@@ -34,6 +36,13 @@ public class Health : MonoBehaviour
 
         // call OnHeal action
         float trueHealAmount = currentHealth - healthBefore;
+
+        if (gameObject.CompareTag("Player"))
+        {
+            PlayerScore player = FindObjectOfType<PlayerScore>();
+            player.AddPoints(5);
+            print("Player healed" + player.currentPoints);
+        }
         if (trueHealAmount > 0f && onHealed != null)
         {
             onHealed.Invoke(trueHealAmount);
@@ -44,6 +53,13 @@ public class Health : MonoBehaviour
     {
         if (invincible)
             return;
+
+        if (gameObject.CompareTag("Enemy"))
+        {
+            PlayerScore player = FindObjectOfType<PlayerScore>();
+            player.AddPoints(5);
+            print("Enemy attacked" + player.currentPoints);
+        }
 
         float healthBefore = currentHealth;
         currentHealth -= damage;
@@ -62,7 +78,6 @@ public class Health : MonoBehaviour
     public void Kill()
     {
         currentHealth = 0f;
-
         // call OnDamage action
         if (onDamaged != null)
         {
@@ -82,6 +97,20 @@ public class Health : MonoBehaviour
         {
             if (onDie != null)
             {
+                if (gameObject.CompareTag("Enemy"))
+                {
+                    PlayerScore player = FindObjectOfType<PlayerScore>();
+                    player.AddPoints(30);
+                    //print("Enemy killed " + player.currentPoints);
+                }
+
+                if (gameObject.CompareTag("Player"))
+                {
+                    PlayerScore player = FindObjectOfType<PlayerScore>();
+                    player.DecreasePoints(30);
+                   // print("Player died" + player.currentPoints);
+                    player.UpdateHighScore();
+                }
                 m_IsDead = true;
                 onDie.Invoke();
             }

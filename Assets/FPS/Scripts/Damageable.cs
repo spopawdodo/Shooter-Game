@@ -30,12 +30,22 @@ public class Damageable : MonoBehaviour
             // skip the crit multiplier if it's from an explosion
             if (!isExplosionDamage)
             {
+                if (health.gameObject.CompareTag("Player"))
+                {
+                    PlayerScore player = FindObjectOfType<PlayerScore>();
+                    player.DecreasePoints(3);
+                }
                 totalDamage *= damageMultiplier;
             }
 
             // potentially reduce damages if inflicted by self
             if (health.gameObject == damageSource)
             {
+                if (health.gameObject.CompareTag("Player"))
+                {
+                    PlayerScore player = FindObjectOfType<PlayerScore>();
+                    player.DecreasePoints(1);
+                }
                 totalDamage *= sensibilityToSelfdamage;
             }
 
