@@ -340,6 +340,9 @@ public class EnemyController : MonoBehaviour
             }
             m_LastTimeDamaged = Time.time;
 
+            PlayerCharacterController player = damageSource.GetComponent<PlayerCharacterController>();
+            player.score += damage;
+
             // play the damage tick sound
             if (damageTick && !m_WasDamagedThisFrame)
                 AudioUtility.CreateSFX(damageTick, transform.position, AudioUtility.AudioGroups.DamageTick, 0f);

@@ -89,6 +89,7 @@ public class PlayerCharacterController : MonoBehaviour
     public bool hasJumpedThisFrame { get; private set; }
     public bool isDead { get; private set; }
     public bool isCrouching { get; private set; }
+    public float score { get; set; }
     public float RotationMultiplier
     {
         get
@@ -123,6 +124,8 @@ public class PlayerCharacterController : MonoBehaviour
         // fetch components on the same gameObject
         m_Controller = GetComponent<CharacterController>();
         DebugUtility.HandleErrorIfNullGetComponent<CharacterController, PlayerCharacterController>(m_Controller, this, gameObject);
+
+        score = 0;
 
         m_InputHandler = GetComponent<PlayerInputHandler>();
         DebugUtility.HandleErrorIfNullGetComponent<PlayerInputHandler, PlayerCharacterController>(m_InputHandler, this, gameObject);

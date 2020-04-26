@@ -99,6 +99,7 @@ public class GameFlowManager : MonoBehaviour
             {
                 message.delayBeforeShowing = delayBeforeWinMessage;
                 message.GetComponent<Transform>().SetAsLastSibling();
+              //  message.score = m_Player.score;
             }
         }
         else
