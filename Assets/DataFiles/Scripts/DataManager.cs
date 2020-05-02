@@ -118,14 +118,18 @@ public class Player
         this.highscores.Sort((a, b) => b.CompareTo(a));
         if (getCapacity() >= 5)
         {
-            this.highscores[getCapacity() - 1] = score;
-            this.highscores.Sort((a, b) => b.CompareTo(a));
+            if (this.highscores[getCapacity() - 1] < score)
+            {
+                this.highscores[getCapacity() - 1] = score;    
+            }
             this.highscores = this.highscores.GetRange(0, 5);
         }
         else
         {
             this.highscores.Add(score);    
         }
+        
+        this.highscores.Sort((a, b) => b.CompareTo(a));
     }
 
     public int getCapacity()
